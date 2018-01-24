@@ -19,6 +19,8 @@ pipeline {
 				buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean install'
 				artideploy.publishBuildInfo buildInfo
 				sh "scp /root/.m2/repository/il/co/boj/shmuelMaxTest/shmuelMaxTest/0.0.1-SNAPSHOT/shmuelMaxTest-0.0.1-SNAPSHOT.jar mordechai@192.168.146.1:C:/jenkinsfile_deploy"
+                sh "ssh mordechai@192.168.146.1 NET STOP testgit"
+				sh "ssh mordechai@192.168.146.1 NET START testgit"
 
 		}
                 
