@@ -1,0 +1,1 @@
+"c:\Program Files\Java\jdk1.8.0_151\bin\java.exe" -jar shmuelMaxTest-0.0.1-SNAPSHOT.jar 
