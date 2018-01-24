@@ -18,7 +18,7 @@ pipeline {
 				rtMaven.deployer.deployArtifacts = false
 				buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean install'
 				artideploy.publishBuildInfo buildInfo
-				sh "scp /workspace/github/target/project-1.1.jar mordechai@192.168.146.1:C:/jenkinsfile_deploy"
+				sh "scp /root/.m2/repository/il/co/boj/shmuelMaxTest/shmuelMaxTest/0.0.1-SNAPSHOT/shmuelMaxTest-0.0.1-SNAPSHOT.jar mordechai@192.168.146.1:C:/jenkinsfile_deploy"
 
 		}
                 
