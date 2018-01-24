@@ -1,0 +1,32 @@
+pipeline {
+		    agent { label 'jenkins_slave'}
+
+    stages {
+
+        stage('artifactory_configuration') {
+            steps {
+                echo 'Hello World'
+
+                script {
+                def artideploy = Artifactory.newServer url: 'http://localhost:8081/artifactory', username: 'admin', password: 'admin'
+				def artirepo = Artifactory.newServer url: 'http://artifactory.dev.securegion.com/artifactory', username: 'shmuelm', password: 'Aa123456'
+				def rtMaven = Artifactory.newMavenBuild()
+				rtMaven.tool = 'mvn'
+				def buildInfo
+				//rtMaven.resolver server: artirepo, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
+				rtMaven.deployer server: artideploy, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
+				rtMaven.deployer.deployArtifacts = false
+				buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean install'
+				artideploy.publishBuildInfo buildInfo
+				sh "scp /workspace/github/target/project-1.1.jar mordechai@192.168.146.1:C:/jenkinsfile_deploy"
+
+		}
+                
+                    }
+			
+                }
+         }
+
+		
+    
+}
